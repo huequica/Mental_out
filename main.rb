@@ -24,7 +24,7 @@ if ans == "y" then
 
     while status_count > 0 do
     
-        status_data = connection.statuses(account_id, {"limit": "100",})
+        status_data = connection.statuses(account_id, {"limit": "50",})
     
         status_data.each do |status|
             status_id = status.id
@@ -40,7 +40,7 @@ if ans == "y" then
             end
         end
         puts "**  API規制回避のために居眠り中  **"
-        
+        sleep(300)
         puts "**  起きたので再開します  **"
         account_info = connection.verify_credentials
         status_count = account_info.statuses_count
