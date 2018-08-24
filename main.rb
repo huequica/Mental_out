@@ -1,8 +1,12 @@
 require 'mastodon'
 
-MASTODON_HOST = ''      #インスタンスのURLはここに入れてな  例)https://mstdn.jp  だとか  https://knzk.me
+puts "インスタンスのアドレス(例:https://mstdn.jp)を入力してください>>"
+MASTODON_HOST = readline.chomp      #インスタンスのURL
 
-connection = Mastodon::REST::Client.new(base_url: MASTODON_HOST, bearer_token: ENV['MASTODON_ACCESS_TOKEN'])
+puts "インスタンスにて取得したアクセストークンを入力してください>>"
+access_token = readline.chomp       #アクセストークン
+
+connection = Mastodon::REST::Client.new(base_url: MASTODON_HOST, bearer_token: access_token)
 account_info = connection.verify_credentials
 
 puts "** 接続に成功しました: #{connection.base_url} **" 
@@ -38,10 +42,11 @@ if ans == "y" then
             else
                 puts "** id: #{status_id} can`t deleted.**"
             end
+
+            puts "**  API規制回避のために居眠り中  **"
+            sleep(1)
+            puts "**  起きたので再開します  **"
         end
-        puts "**  API規制回避のために居眠り中  **"
-        sleep(300)
-        puts "**  起きたので再開します  **"
         account_info = connection.verify_credentials
         status_count = account_info.statuses_count
     end
